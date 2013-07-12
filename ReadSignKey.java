@@ -46,7 +46,7 @@ public class ReadSignKey extends KeyHandler
 		if(tickEnd)
 		{
 			Minecraft MC = ModLoader.getMinecraftInstance();
-			loadOptions();
+			//loadOptions();
 			//Check = false;
 			//System.out.println("RS in");
 
@@ -118,7 +118,7 @@ private int getMaxCurrentStrength(World par1World, int par2, int par3, int par4,
 
 		return true;
 	}
-
+/*
 	public void loadOptions()
 	{
 		Minecraft MC = ModLoader.getMinecraftInstance();
@@ -162,7 +162,7 @@ private int getMaxCurrentStrength(World par1World, int par2, int par3, int par4,
 			System.out.println(e);
 		}
 	}
-
+*/
 	@Override
 	public void keyUp(EnumSet<TickType> types, KeyBinding kb, boolean tickEnd)
 	{
