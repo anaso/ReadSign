@@ -29,22 +29,6 @@ import org.lwjgl.input.Keyboard;
 
 public class ReadSign
 {
-	//@MLProp(min = 1.0D, max = 255.0D)
-	//public static int KeyRead = 19;
-
-	//public KeyBinding keyRead = new KeyBinding("ReadSign", KeyRead);
-
-	/*
-	@MLProp(name = "Sneaking", info = "True => Sneaking Read")
-	public static boolean Sneaking = false;
-
-	@MLProp(name = "NotSneaking", info = "True => NotSneaking Read")
-	public static boolean NotSneaking = true;
-
-	@MLProp(name = "ModeNewLine", info = "True=>MultiLine  False=>SingleLine")
-	public static boolean ModeNewLine = false;
-	*/
-
 	public static int KeyRead = Keyboard.KEY_R;
 	public static boolean Sneaking = false;
 	public static boolean NotSneaking = true;
@@ -97,76 +81,4 @@ public class ReadSign
 
 		KeyBindingRegistry.registerKeyBinding(myKeyHandler);
 	}
-
-	/*
-	public mod_ReadSign()
-	{
-		ModLoader.registerKey(this, new KeyBinding("ReadSign", KeyRead), false);
-		ModLoader.registerPacketChannel(this, "ReadSign");
-	}
-	*/
-
-
-	/*
-	public static boolean AddMessege(TileEntitySign SignText, ReadSign RS)
-	{
-		String text = "", temp = "";
-
-		for (int a = 0; a < SignText.signText.length; a++)
-		{
-			temp = SignText.signText[a];
-			if (temp.equals(" ") || temp.equals(""))
-			{
-			}
-			else
-			{
-				if(RS.ModeNewLine)
-				{
-					ModLoader.getMinecraftInstance().thePlayer.addChatMessage(temp);
-				}
-				else
-				{
-					text += temp + "  ";
-				}
-			}
-		}
-
-		if(!RS.ModeNewLine)
-		{
-			ModLoader.getMinecraftInstance().thePlayer.addChatMessage(text);
-		}
-
-		return true;
-	}
-	*/
-
-	/*
-	public void handleKeyboardEvent(KeyBinding keybinding)
-	{
-		Minecraft var = ModLoader.getMinecraftInstance();
-
-		if (keybinding.keyDescription.equals("ReadSign"))
-		{
-			if(var.objectMouseOver != null)
-			{
-				int BlockX = var.objectMouseOver.blockX;
-				int BlockY = var.objectMouseOver.blockY;
-				int BlockZ = var.objectMouseOver.blockZ;
-
-				if(Block.signPost.blockID == var.theWorld.getBlockId(BlockX, BlockY, BlockZ) || Block.signWall.blockID == var.theWorld.getBlockId(BlockX, BlockY, BlockZ))
-				{
-					TileEntitySign par1TileEntitySign = (TileEntitySign)var.theWorld.getBlockTileEntity(BlockX, BlockY, BlockZ);
-					if(this.Sneaking == var.thePlayer.isSneaking())
-					{
-						ReadSign.AddMessege(par1TileEntitySign, this);
-					}
-					else if(this.NotSneaking != var.thePlayer.isSneaking())
-					{
-						ReadSign.AddMessege(par1TileEntitySign, this);
-					}
-				}
-			}
-		}
-	}
-	*/
 }
