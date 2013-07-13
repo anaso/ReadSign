@@ -19,7 +19,6 @@ import net.minecraft.world.World;
 
 public class ReadSignKey extends KeyHandler
 {
-	//boolean Check = false;
 
 	public static int bindKey;
 
@@ -27,8 +26,6 @@ public class ReadSignKey extends KeyHandler
 
 	public ReadSignKey(KeyBinding[] keyBindings, boolean[] repeatings, HashMap Options)
 	{
-		//the first value is an array of KeyBindings, the second is whether or not the call
-		//keyDown should repeat as long as the key is down
 		super(keyBindings, repeatings);
 
 		this.Options = Options;
@@ -46,9 +43,14 @@ public class ReadSignKey extends KeyHandler
 		if(tickEnd)
 		{
 			Minecraft MC = ModLoader.getMinecraftInstance();
-			//loadOptions();
-			//Check = false;
-			//System.out.println("RS in");
+			
+			for(int i = 0; MC.gameSettings.keyBindings.length > i; i++)
+			{
+				if(MC.gameSettings.keyBindings[i].keyDescription.equals("ReadSign"))
+				{
+					this.bindKey = MC.gameSettings.keyBindings[i].keyCode;
+				}
+			}
 
 			if(kb.keyCode == bindKey)
 			{
@@ -57,6 +59,8 @@ public class ReadSignKey extends KeyHandler
 					int BlockX = MC.objectMouseOver.blockX;
 					int BlockY = MC.objectMouseOver.blockY;
 					int BlockZ = MC.objectMouseOver.blockZ;
+					
+					// ターゲットしているブロックの確認
 
 					if(Block.signPost.blockID == MC.theWorld.getBlockId(BlockX, BlockY, BlockZ) || Block.signWall.blockID == MC.theWorld.getBlockId(BlockX, BlockY, BlockZ))
 					{
@@ -118,51 +122,7 @@ private int getMaxCurrentStrength(World par1World, int par2, int par3, int par4,
 
 		return true;
 	}
-/*
-	public void loadOptions()
-	{
-		Minecraft MC = ModLoader.getMinecraftInstance();
-		File optionsFile = new File(MC.getMinecraftDir(), "options.txt");
 
-		try
-		{
-			if (!optionsFile.exists())
-			{
-				return;
-			}
-
-			BufferedReader var1 = new BufferedReader(new FileReader(optionsFile));
-			String var2 = "";
-
-			while ((var2 = var1.readLine()) != null)
-			{
-				try
-				{
-					String[] var3 = var2.split(":");
-
-					for (int var4 = 0; var4 < this.keyBindings.length; ++var4)
-					{
-						if (var3[0].equals("key_ReadSign"))
-						{
-							bindKey = Integer.parseInt(var3[1]);
-						}
-					}
-				}
-				catch (Exception e)
-				{
-					System.out.println(e);
-				}
-			}
-
-			KeyBinding.resetKeyBindingArrayAndHash();
-			var1.close();
-		}
-		catch (Exception e)
-		{
-			System.out.println(e);
-		}
-	}
-*/
 	@Override
 	public void keyUp(EnumSet<TickType> types, KeyBinding kb, boolean tickEnd)
 	{

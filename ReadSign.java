@@ -20,7 +20,7 @@ import org.lwjgl.input.Keyboard;
 (
 	modid = "ReadSign",
 	name = "Read Sign",
-	version = "1.5.2"
+	version = "1.6"
 )
 @NetworkMod
 (
