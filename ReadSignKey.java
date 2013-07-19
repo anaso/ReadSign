@@ -60,7 +60,7 @@ public class ReadSignKey extends KeyHandler
 					int BlockY = MC.objectMouseOver.blockY;
 					int BlockZ = MC.objectMouseOver.blockZ;
 					
-					// ƒ^[ƒQƒbƒg‚µ‚Ä‚¢‚éƒuƒƒbƒN‚ÌŠm”F
+					// ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã—ã¦ã„ã‚‹ãƒ–ãƒ­ãƒƒã‚¯ã®ç¢ºèª
 
 					if(Block.signPost.blockID == MC.theWorld.getBlockId(BlockX, BlockY, BlockZ) || Block.signWall.blockID == MC.theWorld.getBlockId(BlockX, BlockY, BlockZ))
 					{
