@@ -1,20 +1,21 @@
 package anaso.ReadSign;
 
-import cpw.mods.fml.client.registry.KeyBindingRegistry;
-import cpw.mods.fml.common.*;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.network.NetworkMod;
-import net.minecraft.src.*;
-import net.minecraft.tileentity.TileEntitySign;
-import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
+import java.util.HashMap;
+import java.util.logging.Level;
+
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.Property;
-import java.util.HashMap;
-import java.util.logging.*;
+
 import org.lwjgl.input.Keyboard;
+
+import cpw.mods.fml.client.registry.KeyBindingRegistry;
+import cpw.mods.fml.common.FMLLog;
+import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.network.NetworkMod;
 
 @Mod
 (
@@ -36,7 +37,7 @@ public class ReadSign
 
 	HashMap <String, Boolean> Options = new HashMap<String, Boolean>();
 
-	@Mod.PreInit
+	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
 		Configuration cfg = new Configuration(event.getSuggestedConfigurationFile());
@@ -70,7 +71,7 @@ public class ReadSign
 		}
 	}
 
-	@Mod.PostInit
+	@EventHandler
 	public void PostInit(FMLPostInitializationEvent event)
 	{
 		KeyBinding[] myBinding = {new KeyBinding("ReadSign", KeyRead)};
