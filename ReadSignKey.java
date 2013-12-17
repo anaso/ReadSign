@@ -19,7 +19,6 @@ import net.minecraft.world.World;
 
 public class ReadSignKey extends KeyHandler
 {
-
 	public static int bindKey;
 
 	HashMap <String, Boolean> Options = new HashMap<String, Boolean>();
@@ -43,7 +42,7 @@ public class ReadSignKey extends KeyHandler
 		if(tickEnd)
 		{
 			Minecraft MC = ModLoader.getMinecraftInstance();
-			
+
 			for(int i = 0; MC.gameSettings.keyBindings.length > i; i++)
 			{
 				if(MC.gameSettings.keyBindings[i].keyDescription.equals("ReadSign"))
@@ -59,7 +58,7 @@ public class ReadSignKey extends KeyHandler
 					int BlockX = MC.objectMouseOver.blockX;
 					int BlockY = MC.objectMouseOver.blockY;
 					int BlockZ = MC.objectMouseOver.blockZ;
-					
+
 					// ターゲットしているブロックの確認
 
 					if(Block.signPost.blockID == MC.theWorld.getBlockId(BlockX, BlockY, BlockZ) || Block.signWall.blockID == MC.theWorld.getBlockId(BlockX, BlockY, BlockZ))
@@ -118,6 +117,14 @@ private int getMaxCurrentStrength(World par1World, int par2, int par3, int par4,
 		if(!Options.get("ModeNewLine").booleanValue())
 		{
 			ModLoader.getMinecraftInstance().thePlayer.addChatMessage(text);
+		}
+
+		try
+		{
+			anaso.HukidashiChat.HukidashiAPI.setHukidashi("Sign", text);
+		}
+		catch (Exception e)
+		{
 		}
 
 		return true;
