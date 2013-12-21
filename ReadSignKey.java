@@ -121,14 +121,17 @@ private int getMaxCurrentStrength(World par1World, int par2, int par3, int par4,
 			ModLoader.getMinecraftInstance().thePlayer.addChatMessage(text);
 		}
 
-		try
+		if(Options.get("ConnectHukidashiChat").booleanValue())
 		{
-			// 座標を指定する
-			anaso.HukidashiChat.HukidashiAPI.setHukidashi("Sign", SignText.signText, worldPosition[0], worldPosition[1], worldPosition[2]);
-		}
-		catch (Exception e)
-		{
-			System.out.println(e);
+			try
+			{
+				// 座標を指定する
+				anaso.HukidashiChat.HukidashiAPI.setHukidashi("Sign", SignText.signText, worldPosition[0], worldPosition[1], worldPosition[2]);
+			}
+			catch (Exception e)
+			{
+				System.out.println(e);
+			}
 		}
 
 		return true;

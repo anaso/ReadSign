@@ -35,6 +35,7 @@ public class ReadSign
 	public static boolean Sneaking = false;
 	public static boolean NotSneaking = true;
 	public static boolean ModeNewLine = false;
+	public static boolean connectHukidashiChat = true;
 
 	HashMap <String, Boolean> Options = new HashMap<String, Boolean>();
 
@@ -49,17 +50,22 @@ public class ReadSign
 			Property PropSneaking = cfg.get(cfg.CATEGORY_GENERAL, "Sneaking", false);
 			Property PropNotSneaking  = cfg.get(cfg.CATEGORY_GENERAL, "NotSneaking", true);
 			Property PropModeNewLine = cfg.get(cfg.CATEGORY_GENERAL, "ModeNewLine", false);
+			Property PropConnectHukidashiChat = cfg.get(cfg.CATEGORY_GENERAL, "Connect HukidashiChat", true);
+
 			PropSneaking.comment  = "True => Sneaking Read";
 			PropNotSneaking.comment   = "True => NotSneaking Read";
 			PropModeNewLine.comment   = "True=>MultiLine  False=>SingleLine";
+
 			KeyRead = PropKeyRead.getInt();
 			Sneaking = PropSneaking.getBoolean(false);
 			NotSneaking = PropNotSneaking.getBoolean(true);
 			ModeNewLine = PropModeNewLine.getBoolean(false);
+			connectHukidashiChat = PropConnectHukidashiChat.getBoolean(true);
 
 			Options.put("Sneaking", Boolean.valueOf(Sneaking));
 			Options.put("NotSneaking", Boolean.valueOf(NotSneaking));
 			Options.put("ModeNewLine", Boolean.valueOf(ModeNewLine));
+			Options.put("ConnectHukidashiChat", Boolean.valueOf(connectHukidashiChat));
 
 		}
 		catch (Exception e)
