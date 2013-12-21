@@ -128,7 +128,7 @@ private int getMaxCurrentStrength(World par1World, int par2, int par3, int par4,
 				// 座標を指定する
 				anaso.HukidashiChat.HukidashiAPI.setHukidashi("Sign", SignText.signText, worldPosition[0], worldPosition[1], worldPosition[2]);
 			}
-			catch (Exception e)
+			catch (NoClassDefFoundError e)
 			{
 				System.out.println(e);
 			}
