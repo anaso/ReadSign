@@ -25,7 +25,8 @@ import cpw.mods.fml.common.network.NetworkMod;
 )
 @NetworkMod
 (
-	clientSideRequired = true
+		clientSideRequired = false,
+		serverSideRequired = false
 )
 
 public class ReadSign
