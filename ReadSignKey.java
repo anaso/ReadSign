@@ -53,7 +53,7 @@ public class ReadSignKey extends KeyHandler
 
 			if(kb.keyCode == bindKey)
 			{
-				if(MC.objectMouseOver != null)
+				if(MC.objectMouseOver != null && MC.currentScreen == null)
 				{
 					int BlockX = MC.objectMouseOver.blockX;
 					int BlockY = MC.objectMouseOver.blockY;
@@ -63,14 +63,16 @@ public class ReadSignKey extends KeyHandler
 
 					if(Block.signPost.blockID == MC.theWorld.getBlockId(BlockX, BlockY, BlockZ) || Block.signWall.blockID == MC.theWorld.getBlockId(BlockX, BlockY, BlockZ))
 					{
+						double[] worldPosition = {BlockX+0.5, BlockY+0.5, BlockZ+0.5};
+
 						TileEntitySign par1TileEntitySign = (TileEntitySign)MC.theWorld.getBlockTileEntity(BlockX, BlockY, BlockZ);
 						if(Options.get("Sneaking").booleanValue() == MC.thePlayer.isSneaking())
 						{
-							AddMessege(par1TileEntitySign);
+							AddMessege(par1TileEntitySign, worldPosition);
 						}
 						else if(Options.get("NotSneaking").booleanValue() != MC.thePlayer.isSneaking())
 						{
-							AddMessege(par1TileEntitySign);
+							AddMessege(par1TileEntitySign, worldPosition);
 						}
 					}
 				}
@@ -91,7 +93,7 @@ private int getMaxCurrentStrength(World par1World, int par2, int par3, int par4,
 	}
 }
 
-	public boolean AddMessege(TileEntitySign SignText)
+	public boolean AddMessege(TileEntitySign SignText, double[] worldPosition)
 	{
 		String text = "", temp = "";
 
@@ -121,10 +123,12 @@ private int getMaxCurrentStrength(World par1World, int par2, int par3, int par4,
 
 		try
 		{
-			anaso.HukidashiChat.HukidashiAPI.setHukidashi("Sign", text);
+			// 座標を指定する
+			anaso.HukidashiChat.HukidashiAPI.setHukidashi("Sign", SignText.signText, worldPosition[0], worldPosition[1], worldPosition[2]);
 		}
 		catch (Exception e)
 		{
+			System.out.println(e);
 		}
 
 		return true;
