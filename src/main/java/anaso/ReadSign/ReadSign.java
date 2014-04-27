@@ -18,7 +18,7 @@ import java.util.HashMap;
 @Mod
 (
 	modid = "anaso.ReadSign",
-	version = "1.6"
+	version = "1.0"
 )
 
 public class ReadSign
