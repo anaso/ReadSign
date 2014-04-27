@@ -1,41 +1,35 @@
 package anaso.ReadSign;
 
-import java.util.HashMap;
-import java.util.logging.Level;
-
-import net.minecraft.client.settings.KeyBinding;
-import net.minecraftforge.common.Configuration;
-import net.minecraftforge.common.Property;
-
-import org.lwjgl.input.Keyboard;
-
-import cpw.mods.fml.client.registry.KeyBindingRegistry;
-import cpw.mods.fml.common.FMLLog;
+import cpw.mods.fml.client.registry.ClientRegistry;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.network.NetworkMod;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.client.settings.KeyBinding;
+import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.common.config.Property;
+import org.lwjgl.input.Keyboard;
+
+import java.util.HashMap;
 
 @Mod
 (
-	modid = "ReadSign",
-	name = "Read Sign",
+	modid = "anaso.ReadSign",
 	version = "1.6"
-)
-@NetworkMod
-(
-		clientSideRequired = false,
-		serverSideRequired = false
 )
 
 public class ReadSign
 {
-	public static int KeyRead = Keyboard.KEY_R;
 	public static boolean Sneaking = false;
 	public static boolean NotSneaking = true;
 	public static boolean ModeNewLine = false;
 	public static boolean connectHukidashiChat = true;
+
+	@SideOnly(Side.CLIENT)
+	public static final KeyBinding readSign = new KeyBinding("key.readSign.name", Keyboard.KEY_R, "readSign.inputEvent.name");
 
 	HashMap <String, Boolean> Options = new HashMap<String, Boolean>();
 
@@ -46,7 +40,6 @@ public class ReadSign
 		try
 		{
 			cfg.load();
-			Property PropKeyRead = cfg.get(cfg.CATEGORY_GENERAL, "KeyRead", 19);
 			Property PropSneaking = cfg.get(cfg.CATEGORY_GENERAL, "Sneaking", false);
 			Property PropNotSneaking  = cfg.get(cfg.CATEGORY_GENERAL, "NotSneaking", true);
 			Property PropModeNewLine = cfg.get(cfg.CATEGORY_GENERAL, "ModeNewLine", false);
@@ -56,7 +49,6 @@ public class ReadSign
 			PropNotSneaking.comment   = "True => NotSneaking Read";
 			PropModeNewLine.comment   = "True=>MultiLine  False=>SingleLine";
 
-			KeyRead = PropKeyRead.getInt();
 			Sneaking = PropSneaking.getBoolean(false);
 			NotSneaking = PropNotSneaking.getBoolean(true);
 			ModeNewLine = PropModeNewLine.getBoolean(false);
@@ -70,7 +62,7 @@ public class ReadSign
 		}
 		catch (Exception e)
 		{
-			FMLLog.log(Level.SEVERE, e, "Error Message");
+			System.err.println(e);
 		}
 		finally
 		{
@@ -78,15 +70,14 @@ public class ReadSign
 		}
 	}
 
-	@EventHandler
-	public void PostInit(FMLPostInitializationEvent event)
+	@Mod.EventHandler
+	public void Init(FMLInitializationEvent event)
 	{
-		KeyBinding[] myBinding = {new KeyBinding("ReadSign", KeyRead)};
+		if(event.getSide() == Side.CLIENT)
+		{
+			ClientRegistry.registerKeyBinding(readSign);
+		}
 
-		boolean[] myBindingRepeat = {false};
-
-		ReadSignKey myKeyHandler = new ReadSignKey(myBinding, myBindingRepeat, Options);
-
-		KeyBindingRegistry.registerKeyBinding(myKeyHandler);
+		FMLCommonHandler.instance().bus().register(new ReadSignKey(readSign, Options));
 	}
 }
