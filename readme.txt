@@ -14,6 +14,7 @@ Minecraft Mod
  ・Sneaking → スニークしているときに実行するか （true:実行 false:実行しない）
  ・NotSneaking → スニークしていないときに実行するか （true:実行 false:実行しない）
  ・Connect HukidashiChat → HukidashiChatとの連携 (f1060時点では何もないです)
+ ・Header → チャット欄に出力するときのヘッダーを設定します。何も入力しなければ表示されません。
 
 
 ・インストール
