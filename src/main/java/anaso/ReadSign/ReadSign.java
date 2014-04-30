@@ -1,6 +1,5 @@
 package anaso.ReadSign;
 
-import com.sun.corba.se.impl.ior.OldJIDLObjectKeyTemplate;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
