@@ -1,5 +1,6 @@
 package anaso.ReadSign;
 
+import com.sun.corba.se.impl.ior.OldJIDLObjectKeyTemplate;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
@@ -14,10 +15,11 @@ import net.minecraftforge.common.config.Property;
 import org.lwjgl.input.Keyboard;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 @Mod
 (
-	modid = "anaso.ReadSign",
+	modid = "ReadSign",
 	version = "1.0"
 )
 
@@ -31,7 +33,7 @@ public class ReadSign
 	@SideOnly(Side.CLIENT)
 	public static final KeyBinding readSign = new KeyBinding("key.readSign.name", Keyboard.KEY_R, "readSign.inputEvent.name");
 
-	HashMap <String, Boolean> Options = new HashMap<String, Boolean>();
+	HashMap <String, Object> Options = new HashMap<String, Object>();
 
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event)
@@ -44,6 +46,7 @@ public class ReadSign
 			Property PropNotSneaking  = cfg.get(cfg.CATEGORY_GENERAL, "NotSneaking", true);
 			Property PropModeNewLine = cfg.get(cfg.CATEGORY_GENERAL, "ModeNewLine", false);
 			Property PropConnectHukidashiChat = cfg.get(cfg.CATEGORY_GENERAL, "Connect HukidashiChat", true);
+			Property PropHeader = cfg.get(cfg.CATEGORY_GENERAL, "Header", "-- Read Sign --");
 
 			PropSneaking.comment  = "True => Sneaking Read";
 			PropNotSneaking.comment   = "True => NotSneaking Read";
@@ -58,6 +61,7 @@ public class ReadSign
 			Options.put("NotSneaking", Boolean.valueOf(NotSneaking));
 			Options.put("ModeNewLine", Boolean.valueOf(ModeNewLine));
 			Options.put("ConnectHukidashiChat", Boolean.valueOf(connectHukidashiChat));
+			Options.put("Header", PropHeader.getString());
 
 		}
 		catch (Exception e)

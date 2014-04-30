@@ -12,12 +12,13 @@ import net.minecraft.tileentity.TileEntitySign;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.world.World;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ReadSignKey{
 	KeyBinding keyBinding = null;
 
-	HashMap<String, Boolean> Options = new HashMap<String, Boolean>();
+	HashMap<String, Object> Options = new HashMap<String, Object>();
 
 	public ReadSignKey(KeyBinding keyBinding, HashMap Options){
 		this.Options = Options;
@@ -41,9 +42,9 @@ public class ReadSignKey{
 					double[] worldPosition = {BlockX + 0.5, BlockY + 0.5, BlockZ + 0.5};
 
 					TileEntitySign par1TileEntitySign = (TileEntitySign) MC.theWorld.getTileEntity(BlockX, BlockY, BlockZ);
-					if(Options.get("Sneaking").booleanValue() == MC.thePlayer.isSneaking()){
+					if((Boolean) Options.get("Sneaking") == MC.thePlayer.isSneaking()){
 						AddMessage(par1TileEntitySign, worldPosition);
-					} else if(Options.get("NotSneaking").booleanValue() != MC.thePlayer.isSneaking()){
+					} else if((Boolean) Options.get("NotSneaking") != MC.thePlayer.isSneaking()){
 						AddMessage(par1TileEntitySign, worldPosition);
 					}
 				}
@@ -53,24 +54,42 @@ public class ReadSignKey{
 
 	public boolean AddMessage(TileEntitySign SignText, double[] worldPosition){
 		String text = "", temp = "";
+		ArrayList<String> showText = new ArrayList<String>();
+		int minLine = 0;
+
+		if(!Options.get("Header").equals("")){
+			showText.add((String) Options.get("Header"));
+			minLine = 1;
+		}
 
 		for(int a = 0; a < SignText.signText.length; a++){
 			temp = SignText.signText[a];
 			if(temp.equals(" ") || temp.equals("")){
 			} else{
-				if(Options.get("ModeNewLine").booleanValue()){
-					FMLClientHandler.instance().getClient().thePlayer.addChatMessage(new ChatComponentText(temp));
+				if((Boolean) Options.get("ModeNewLine")){
+					showText.add(temp);
 				} else{
 					text += temp + "  ";
 				}
 			}
 		}
 
-		if(!Options.get("ModeNewLine").booleanValue()){
-			FMLClientHandler.instance().getClient().thePlayer.addChatMessage(new ChatComponentText(text));
+		if(!(Boolean) Options.get("ModeNewLine")){
+			if(!text.replaceAll(" ", "").equals("")){
+				showText.add(text);
+			}
 		}
 
-		if(Options.get("ConnectHukidashiChat").booleanValue()){
+		// 表示部分
+		if(showText.size() > minLine)
+		{
+			for(String showString:showText)
+			{
+				FMLClientHandler.instance().getClient().thePlayer.addChatMessage(new ChatComponentText(showString));
+			}
+		}
+
+		if((Boolean) Options.get("ConnectHukidashiChat")){
 		}
 
 		return true;

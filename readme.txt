@@ -13,6 +13,7 @@ Minecraft Mod
  ・Mode_NewLine → チャット欄に表示する際に、改行するかしないか （true:改行 false:改行しない）
  ・Sneaking → スニークしているときに実行するか （true:実行 false:実行しない）
  ・NotSneaking → スニークしていないときに実行するか （true:実行 false:実行しない）
+ ・Connect HukidashiChat → HukidashiChatとの連携 (f1060時点では何もないです)
 
 
 ・インストール
