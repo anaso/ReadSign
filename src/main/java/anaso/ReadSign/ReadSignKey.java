@@ -87,9 +87,18 @@ public class ReadSignKey{
 			{
 				FMLClientHandler.instance().getClient().thePlayer.addChatMessage(new ChatComponentText(showString));
 			}
-		}
 
-		if((Boolean) Options.get("ConnectHukidashiChat")){
+			if((Boolean) Options.get("ConnectHukidashiChat")){
+				try
+				{
+					// 座標を指定する
+					anaso.HukidashiChat.HukidashiAPI.setHukidashi("Sign", SignText.signText, worldPosition[0], worldPosition[1], worldPosition[2]);
+				}
+				catch (NoClassDefFoundError e)
+				{
+					System.out.println(e);
+				}
+			}
 		}
 
 		return true;
