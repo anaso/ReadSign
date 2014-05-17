@@ -10,8 +10,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.tileentity.TileEntitySign;
 import net.minecraft.util.ChatComponentText;
-import net.minecraft.world.World;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -92,9 +92,18 @@ public class ReadSignKey{
 				try
 				{
 					// 座標を指定する
-					anaso.HukidashiChat.HukidashiAPI.setHukidashi("Sign", SignText.signText, worldPosition[0], worldPosition[1], worldPosition[2]);
+					Class cl = Class.forName("anaso.HukidashiChat.HukidashiAPI");
+					Class<?>[] classArg = {String.class, String[].class, double.class, double.class, double.class};
+
+					Object[] ObjectArg = {"Sign", SignText.signText, worldPosition[0], worldPosition[1], worldPosition[2]};
+					Method setHukidashi = cl.getMethod("setHukidashi", classArg);
+					setHukidashi.invoke(null, ObjectArg);
 				}
-				catch (NoClassDefFoundError e)
+				catch (ClassNotFoundException e)
+				{
+					System.out.println(e);
+				}
+				catch (Exception e)
 				{
 					System.out.println(e);
 				}
